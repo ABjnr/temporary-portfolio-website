@@ -2,9 +2,9 @@ extends layout
 
 block layout-content
   h1 Add New Project
-  a(href="/project") Back to Projects
+  a(href="/admin/project") Back to Projects
 
-  form(action="/project/add", method="POST")
+  form(action="/admin/project/add", method="POST")
     p
       label Title:
       input(type="text", name="projectTitle", required)

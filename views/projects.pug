@@ -2,7 +2,7 @@ extends layout
 
 block layout-content
   h1 My Projects
-  a(href="/project/add") Add New Project
+  a(href="/admin/project/add") Add New Project
 
   if projects.length
     ul
@@ -15,8 +15,8 @@ block layout-content
             |  #{p.technologies}
             p: a(href=p.githubLink) View on GitHub
             p: a(href=p.liveLink) Live Demo
-          button: a(href=`/project/update?id=${p._id}`) Update
-          form(action=`/project/delete?id=${p.id}`, method="POST")
+          button: a(href=`/admin/project/update?id=${p._id}`) Update
+          form(action=`/admin/project/delete?id=${p.id}`, method="POST")
             input(type="hidden", name="title", value=p._id)
             button(type="submit") Delete
   else

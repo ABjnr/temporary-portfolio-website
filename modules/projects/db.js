@@ -9,9 +9,16 @@ const ProjectSchema = new mongoose.Schema({
   githubLink: String,
   liveLink: String,
 });
+const SkillSchema = new mongoose.Schema({
+  name: String,
+  level: String,
+});
+
 const Project = mongoose.model("Project", ProjectSchema);
+const Skill = mongoose.model("Skill", SkillSchema);
 await mongoose.connect(dbUrl);
 
+// project controller
 async function getProjects() {
   try {
     const result = await Project.find({});
@@ -83,6 +90,48 @@ async function deleteProjectById(id) {
   }
 }
 
+// skill controllers
+async function getSkills() {
+  try {
+    return await Skill.find({});
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function addSkill(skillName, skillLevel) {
+  try {
+    let addNewSkill = new Skill({
+      name: String(skillName),
+      level: String(skillLevel),
+    });
+    const addedSkill = await addNewSkill.save();
+    return addedSkill;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function updateSkillLevel(name, newLevel) {
+  try {
+    const result = await Skill.updateOne(
+      { name: name },
+      { $set: { level: newLevel } }
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function deleteSkill(name) {
+  try {
+    return await Skill.deleteOne({ name: name });
+  } catch (error) {
+    throw error;
+  }
+}
+
 export default {
   getProjects,
   initializeProjects,
@@ -90,4 +139,8 @@ export default {
   updateProjectById,
   deleteProjectById,
   getProjectById,
+  getSkills,
+  addSkill,
+  updateSkillLevel,
+  deleteSkill,
 };
