@@ -1,0 +1,28 @@
+extends layout
+
+block layout-content
+  h1 Add New Project
+  a(href="/project") Back to Projects
+
+  form(action="/project/add", method="POST")
+    p
+      label Title:
+      input(type="text", name="projectTitle", required)
+
+    p
+      label Description:
+      textarea(name="projectDesc", required)
+
+    p
+      label Technologies:
+      input(type="text", name="projectTechnologies")
+
+    p
+      label GitHub Link:
+      input(type="url", name="projectGitLink")
+
+    p
+      label Live Link:
+      input(type="url", name="projectLiveLink")
+
+    button(type="submit") Add Project

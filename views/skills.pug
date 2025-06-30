@@ -1,0 +1,14 @@
+extends layout 
+
+block layout-content
+    h1 My Skills
+    a(href="/skill/add") Add a new skill
+    ul
+        each s in skills 
+            li 
+                strong  #{s.name} - #{s.level}
+                p
+                    button: a(href=`/skill/update?name=${s.name}`) Update
+                form(action="/skill/delete", method="POST")
+                    input(type="hidden", name="name", value=s.name)
+                    button(type="submit") Delete

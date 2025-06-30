@@ -1,0 +1,14 @@
+extends layout 
+
+block layout-content
+    h1 Update Skill 
+    a(href="/skill") Back to Skills
+    form(action="/skill/update", method="POST")
+        p
+            label Skill:
+            input(type="text", name="name", value=name, readonly)
+        p
+            label New Level:
+            input(type="text", name="newLevel", required)
+        button(type="submit") Update Skill
+

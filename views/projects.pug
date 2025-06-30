@@ -1,0 +1,23 @@
+extends layout
+
+block layout-content
+  h1 My Projects
+  a(href="/project/add") Add New Project
+
+  if projects.length
+    ul
+      each p in projects
+        li
+          h2 #{p.title}
+          p #{p.description}
+          p
+            strong Technologies:
+            |  #{p.technologies}
+            p: a(href=p.githubLink) View on GitHub
+            p: a(href=p.liveLink) Live Demo
+          button: a(href=`/project/update?id=${p._id}`) Update
+          form(action=`/project/delete?id=${p.id}`, method="POST")
+            input(type="hidden", name="title", value=p._id)
+            button(type="submit") Delete
+  else
+    p No projects yet.
