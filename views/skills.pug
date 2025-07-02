@@ -8,7 +8,7 @@ block layout-content
             li 
                 strong  #{s.name} - #{s.level}
                 p
-                    button: a(href=`/admin/skill/update?name=${s.name}`) Update
+                    button: a(href=`/admin/skill/update?id=${s.id}`) Update
                 form(action="/admin/skill/delete", method="POST")
-                    input(type="hidden", name="name", value=s.name)
+                    input(type="hidden", name="id", value=s.id)
                     button(type="submit") Delete

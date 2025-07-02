@@ -4,9 +4,10 @@ block layout-content
     h1 Update Skill 
     a(href="/admin/skill") Back to Skills
     form(action="/admin/skill/update", method="POST")
+        input(type="hidden", name="id", value=skill.id)
         p
             label Skill:
-            input(type="text", name="name", value=name, readonly)
+            input(type="text", name="name", value=skill.name, readonly)
         p
             label New Level:
             input(type="text", name="newLevel", required)

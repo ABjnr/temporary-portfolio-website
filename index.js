@@ -11,13 +11,12 @@ app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
-// import skillRouter from "./modules/skills/router.js";
+// Import and mount admin router handling project and skill management routes under /admin
 import adminRouter from "./modules/projects/router.js";
 
-
-// app.use("/skill", skillRouter);
 app.use("/admin", adminRouter);
 
+// Start the server and listen on configured port
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);
 });
