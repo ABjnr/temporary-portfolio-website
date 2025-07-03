@@ -4,7 +4,7 @@ import path from "path";
 
 const __dirname = import.meta.dirname;
 const app = express();
-const PORT = process.env.PORT || "8888";
+const PORT = process.env.PORT;
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
