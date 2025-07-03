@@ -164,4 +164,8 @@ router.post("/skill/delete", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res)=>{
+  res.redirect("/admin/project")
+})
+
 export default router;
