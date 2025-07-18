@@ -13,6 +13,8 @@ app.set("view engine", "pug");
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, "public")));
+// for JSON request bodies
+app.use(express.json());
 
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded({ extended: true }));
@@ -33,7 +35,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
-  res.redirect("/api/skills");
+  res.redirect("/api/projects");
 });
 
  // Start the server and listen on configured port

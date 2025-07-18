@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const dbUrl = `${process.env.MONGO_URI}${process.env.DB_NAME}`;
 
 // Define Project schema
@@ -15,10 +14,6 @@ const ProjectSchema = new mongoose.Schema({
 const Project = mongoose.model("Project", ProjectSchema);
 // Connect to MongoDB
 await mongoose.connect(dbUrl);
-
-/*-----------------------------*/
-/*      Project Controllers     */
-/*-----------------------------*/
 
 // Retrieve all projects from the database
 async function getProjects() {
@@ -83,9 +78,13 @@ async function addProject(
 // Update fields of an existing project identified by its _id
 async function updateProjectById(id, updateFields) {
   try {
-    const result = await Project.findByIdAndUpdate(id, {
-      $set: updateFields,
-    });
+    const result = await Project.findByIdAndUpdate(
+      id,
+      {
+        $set: updateFields,
+      },
+      { new: true }
+    );
     return result;
   } catch (error) {
     throw error;

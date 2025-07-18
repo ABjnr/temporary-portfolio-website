@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const dbUrl = `${process.env.MONGO_URI}${process.env.DB_NAME}`;
 
 // Define Skill schema
@@ -12,10 +11,6 @@ const SkillSchema = new mongoose.Schema({
 const Skill = mongoose.model("Skill", SkillSchema);
 // Connect to MongoDB
 await mongoose.connect(dbUrl);
-
-/*-----------------------------*/
-/*       Skill Controllers      */
-/*-----------------------------*/
 
 // Retrieve all skills stored in the database
 async function getSkills() {
@@ -69,11 +64,15 @@ async function addSkill(skillName, skillLevel) {
 }
 
 // Update the proficiency level of a skill
-async function updateSkillLevel(id, newLevel) {
+async function updateSkillById(id, newLevel) {
   try {
-    const result = await Skill.findByIdAndUpdate(id, {
-      $set: { level: newLevel },
-    });
+    const result = await Skill.findByIdAndUpdate(
+      id,
+      {
+        $set: newLevel,
+      },
+      { new: true }
+    );
     return result;
   } catch (error) {
     throw error;
@@ -93,7 +92,7 @@ export default {
   getSkills,
   initializeSkills,
   addSkill,
-  updateSkillLevel,
+  updateSkillById,
   deleteSkill,
   getSkillById,
 };

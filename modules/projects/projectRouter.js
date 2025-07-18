@@ -3,10 +3,6 @@ const router = express.Router();
 
 import db from "./projectDb.js";
 
-/*--------------------------------
-  Project Routes
---------------------------------*/
-
 // Get all projects; if none, initialize default projects
 router.get("/project", async (req, res) => {
   try {

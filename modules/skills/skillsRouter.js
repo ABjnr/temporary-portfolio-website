@@ -3,10 +3,6 @@ const router = express.Router();
 
 import db from "./skillsDb.js";
 
-/*--------------------------------
-  Skill Routes
---------------------------------*/
-
 // Get all skills
 router.get("/skill", async (req, res) => {
   try {

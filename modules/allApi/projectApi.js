@@ -3,15 +3,11 @@ const router = express.Router();
 
 import db from "../projects/projectDb.js";
 
-/*--------------------------------
-    API Endpoints for Projects
-  --------------------------------*/
-
 // Get all projects (API)
 router.get("/projects", async (req, res) => {
   try {
     const projects = await db.getProjects();
-    res.json(projects);
+    res.json({ projects: projects });
   } catch (error) {
     console.error("API error (get all projects):", error);
     res.status(500).json({ error: "Failed to fetch projects" });
@@ -25,7 +21,7 @@ router.get("/projects/:id", async (req, res) => {
     if (!project) {
       return res.status(404).json({ error: "Project not found" });
     }
-    res.json(project);
+    res.json({ project: project });
   } catch (error) {
     console.error("API error (get project by id):", error);
     res.status(500).json({ error: "Failed to fetch project" });
@@ -36,6 +32,7 @@ router.get("/projects/:id", async (req, res) => {
 router.post("/projects/add", async (req, res) => {
   try {
     const { title, description, technologies, githubLink, liveLink } = req.body;
+    console.log(req.body);
     if (!title || !description) {
       return res
         .status(400)
@@ -48,7 +45,7 @@ router.post("/projects/add", async (req, res) => {
       githubLink,
       liveLink
     );
-    res.status(201).json(newProject);
+    res.status(201).json({ message: "Project created", project: newProject });
   } catch (error) {
     console.error("API error (create project):", error);
     res.status(500).json({ error: "Failed to create project" });
@@ -58,19 +55,21 @@ router.post("/projects/add", async (req, res) => {
 // Update a project by ID (API)
 router.put("/projects/update/:id", async (req, res) => {
   try {
+    const reqId = req.params.id;
     const { title, description, technologies, githubLink, liveLink } = req.body;
     const updateFields = {
-      title,
-      description,
-      technologies,
-      githubLink,
-      liveLink,
+      title: title,
+      description: description,
+      technologies: technologies,
+      githubLink: githubLink,
+      liveLink: liveLink,
     };
-    const updated = await db.updateProjectById(req.params.id, updateFields);
+    const updated = await db.updateProjectById(reqId, updateFields);
     if (!updated) {
       return res.status(404).json({ error: "Project not found" });
     }
-    res.json(updated);
+    console.log(updated);
+    res.json({ message: "Project updated successfully", update: updated });
   } catch (error) {
     console.error("API error (update project):", error);
     res.status(500).json({ error: "Failed to update project" });
@@ -80,7 +79,8 @@ router.put("/projects/update/:id", async (req, res) => {
 // Delete a project by ID (API)
 router.delete("/projects/delete/:id", async (req, res) => {
   try {
-    const deleted = await db.deleteProjectById(req.params.id);
+    const reqId = req.params.id;
+    const deleted = await db.deleteProjectById(reqId);
     if (!deleted) {
       return res.status(404).json({ error: "Project not found" });
     }
