@@ -1,11 +1,15 @@
 import "dotenv/config";
 import express from "express";
 import path from "path";
+import cors from "cors";
 
 // Get the current directory name (ESM compatible)
 const __dirname = import.meta.dirname;
 const app = express();
 const PORT = process.env.PORT || 3000; // Fallback to 3000 if PORT is not set
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Set up view engine and views directory
 app.set("views", path.join(__dirname, "views"));
