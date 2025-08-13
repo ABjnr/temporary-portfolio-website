@@ -9,11 +9,14 @@ const app = express();
 const PORT = process.env.PORT || 3000; // Fallback to 3000 if PORT is not set
 
 // Enable CORS for all routes
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+// app.use(cors());
+app.use(
+  cors({
+    origin: "https://portfolio-website-steel-tau-19.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // Set up view engine and views directory
 app.set("views", path.join(__dirname, "views"));
