@@ -1,11 +1,19 @@
 import "dotenv/config";
 import express from "express";
 import path from "path";
+import cors from "cors";
 
 // Get the current directory name (ESM compatible)
 const __dirname = import.meta.dirname;
 const app = express();
 const PORT = process.env.PORT || 3000; // Fallback to 3000 if PORT is not set
+
+// Enable CORS for all routes
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 // Set up view engine and views directory
 app.set("views", path.join(__dirname, "views"));
@@ -38,11 +46,16 @@ app.get("/api", (req, res) => {
   res.redirect("/api/projects");
 });
 
- // Start the server and listen on configured port
-app.listen(PORT, (err) => {
-  if (err) {
-    console.error("Failed to start server:", err);
-    process.exit(1);
-  }
-  console.log(`Listening on http://localhost:${PORT}`);
-});
+// Only start the server if we're not in a Vercel environment
+if (process.env.VERCEL !== "1") {
+  app.listen(PORT, (err) => {
+    if (err) {
+      console.error("Failed to start server:", err);
+      process.exit(1);
+    }
+    console.log(`Listening on http://localhost:${PORT}`);
+  });
+}
+
+// Export the app for Vercel
+export default app;
